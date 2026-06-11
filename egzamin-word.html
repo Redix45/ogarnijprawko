@@ -55,6 +55,9 @@ body{font-family:"Arimo",Arial,sans-serif;background:var(--wbg);color:var(--wtxt
   min-height:430px;display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 .wmedia img,.wmedia video{width:100%;height:100%;max-height:480px;object-fit:contain;display:block;background:#000}
+.wmedia .wm-top{position:absolute;top:0;left:0;right:0;height:15%;min-height:34px;pointer-events:none;z-index:3;
+  backdrop-filter:blur(11px) brightness(.97);-webkit-backdrop-filter:blur(11px) brightness(.97);
+  -webkit-mask:linear-gradient(#000 48%,transparent);mask:linear-gradient(#000 48%,transparent)}
 .wmedia .reading{text-align:center;color:#9aa3ad;padding:40px}
 .wmedia .reading .cam{font-size:3.2rem;opacity:.5;margin-bottom:14px}
 .wmedia .reading .t1{color:#7a8590;font-size:1rem;margin-bottom:18px}
@@ -216,6 +219,7 @@ function mediaInner(q,show){
     const base=q.media.replace(/\.(jpe?g|png|gif)$/i,"");
     return `<img alt="" src="media/img/${encodeURIComponent(q.media)}"
       onerror="this.outerHTML='<div class=&quot;reading&quot;><div class=&quot;cam&quot;>🖼️</div><div class=&quot;t2&quot;>${base}</div></div>'">
+      <span class="wm-top"></span>
       <div class="qid">ID: ${q.id}</div>`;
   }
   if(q.media && q.mediaTyp==="video"){

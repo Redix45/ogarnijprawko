@@ -109,7 +109,7 @@ function mediaHtml(q){
     const base = q.media.replace(/\.(jpe?g|png|gif)$/i,"");
     return `<div class="qmedia"><img loading="lazy" alt=""
       src="media/img/${encodeURIComponent(q.media)}"
-      onerror="this.onerror=null;this.parentElement.innerHTML='<div class=&quot;muted&quot; style=&quot;padding:30px&quot;>🖼️ ${base}</div>'"></div>`;
+      onerror="this.onerror=null;this.parentElement.innerHTML='<div class=&quot;muted&quot; style=&quot;padding:30px&quot;>🖼️ ${base}</div>'"><span class="wm-top"></span></div>`;
   }
   // wideo: .wmv nie gra w przeglądarce — placeholder do czasu transkodu
   return `<div class="qmedia"><div class="muted center" style="padding:40px 20px">${t("filmWkrotce")}</div></div>`;
