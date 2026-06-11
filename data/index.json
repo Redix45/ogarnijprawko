@@ -1,0 +1,714 @@
+{
+ "kategorie": {
+  "A": {
+   "plik": "kat/A.json",
+   "razem": 1428,
+   "podstawowe": 1257,
+   "specjalistyczne": 171,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 47
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 12
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 390
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 176
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 73
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 163
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 100
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 17
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 10
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 440
+    }
+   ]
+  },
+  "B": {
+   "plik": "kat/B.json",
+   "razem": 2138,
+   "podstawowe": 1753,
+   "specjalistyczne": 385,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 55
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 10
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 534
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 285
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 115
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 243
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 155
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 28
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 29
+    },
+    {
+     "slug": "ekologia",
+     "nazwa": "Ekologia i ekonomia jazdy",
+     "liczba": 1
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 683
+    }
+   ]
+  },
+  "C": {
+   "plik": "kat/C.json",
+   "razem": 1478,
+   "podstawowe": 1292,
+   "specjalistyczne": 186,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 41
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 7
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 386
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 187
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 75
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 173
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 95
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 16
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 16
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 482
+    }
+   ]
+  },
+  "D": {
+   "plik": "kat/D.json",
+   "razem": 1491,
+   "podstawowe": 1284,
+   "specjalistyczne": 207,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 37
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 9
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 389
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 188
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 74
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 176
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 99
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 25
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 23
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 471
+    }
+   ]
+  },
+  "T": {
+   "plik": "kat/T.json",
+   "razem": 1308,
+   "podstawowe": 1155,
+   "specjalistyczne": 153,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 46
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 5
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 371
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 169
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 46
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 146
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 88
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 19
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 18
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 400
+    }
+   ]
+  },
+  "AM": {
+   "plik": "kat/AM.json",
+   "razem": 1516,
+   "podstawowe": 1407,
+   "specjalistyczne": 109,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 50
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 10
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 458
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 193
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 53
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 171
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 161
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 12
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 5
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 403
+    }
+   ]
+  },
+  "A1": {
+   "plik": "kat/A1.json",
+   "razem": 1414,
+   "podstawowe": 1255,
+   "specjalistyczne": 159,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 47
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 12
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 390
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 175
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 68
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 163
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 100
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 14
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 10
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 435
+    }
+   ]
+  },
+  "A2": {
+   "plik": "kat/A2.json",
+   "razem": 1412,
+   "podstawowe": 1253,
+   "specjalistyczne": 159,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 47
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 12
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 390
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 175
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 68
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 164
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 100
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 14
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 10
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 432
+    }
+   ]
+  },
+  "B1": {
+   "plik": "kat/B1.json",
+   "razem": 1424,
+   "podstawowe": 1269,
+   "specjalistyczne": 155,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 48
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 6
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 392
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 172
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 61
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 175
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 102
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 14
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 11
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 443
+    }
+   ]
+  },
+  "C1": {
+   "plik": "kat/C1.json",
+   "razem": 1445,
+   "podstawowe": 1286,
+   "specjalistyczne": 159,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 41
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 7
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 387
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 182
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 72
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 171
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 92
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 13
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 16
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 464
+    }
+   ]
+  },
+  "D1": {
+   "plik": "kat/D1.json",
+   "razem": 1478,
+   "podstawowe": 1280,
+   "specjalistyczne": 198,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 37
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 9
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 390
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 186
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 71
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 176
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 100
+    },
+    {
+     "slug": "dokumenty",
+     "nazwa": "Przepisy i dokumenty",
+     "liczba": 23
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 22
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 464
+    }
+   ]
+  },
+  "PT": {
+   "plik": "kat/PT.json",
+   "razem": 439,
+   "podstawowe": 270,
+   "specjalistyczne": 169,
+   "dzialy": [
+    {
+     "slug": "pierwsza-pomoc",
+     "nazwa": "Pierwsza pomoc",
+     "liczba": 17
+    },
+    {
+     "slug": "stan-kierujacego",
+     "nazwa": "Stan kierującego",
+     "liczba": 5
+    },
+    {
+     "slug": "pierwszenstwo",
+     "nazwa": "Pierwszeństwo i skrzyżowania",
+     "liczba": 82
+    },
+    {
+     "slug": "znaki",
+     "nazwa": "Znaki i sygnały",
+     "liczba": 65
+    },
+    {
+     "slug": "predkosc",
+     "nazwa": "Prędkość i hamowanie",
+     "liczba": 32
+    },
+    {
+     "slug": "manewry",
+     "nazwa": "Manewry",
+     "liczba": 32
+    },
+    {
+     "slug": "pieszi-rowery",
+     "nazwa": "Piesi, rowery, przejazdy",
+     "liczba": 101
+    },
+    {
+     "slug": "technika",
+     "nazwa": "Technika i eksploatacja",
+     "liczba": 9
+    },
+    {
+     "slug": "pozostale",
+     "nazwa": "Pozostałe przepisy",
+     "liczba": 96
+    }
+   ]
+  }
+ },
+ "razem": 3525,
+ "dzialNazwy": {
+  "pierwsza-pomoc": "Pierwsza pomoc",
+  "stan-kierujacego": "Stan kierującego",
+  "pierwszenstwo": "Pierwszeństwo i skrzyżowania",
+  "znaki": "Znaki i sygnały",
+  "predkosc": "Prędkość i hamowanie",
+  "manewry": "Manewry",
+  "pieszi-rowery": "Piesi, rowery, przejazdy",
+  "dokumenty": "Przepisy i dokumenty",
+  "technika": "Technika i eksploatacja",
+  "ekologia": "Ekologia i ekonomia jazdy",
+  "pozostale": "Pozostałe przepisy"
+ }
+}

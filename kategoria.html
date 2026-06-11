@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kategoria — ogarnijprawko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header"><div class="container bar">
+  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <nav class="nav">
+    <a href="index.html">Start</a>
+    <a href="cennik.html">Cennik</a>
+  </nav>
+</div></header>
+
+<main class="container" id="app"><div class="spinner"></div></main>
+
+<footer class="footer container">
+  Pytania z oficjalnej bazy Ministerstwa Infrastruktury (gov.pl) — domena publiczna.<br>
+  ogarnijprawko · projekt edukacyjny · nie jest powiązany z WORD ani MI.
+</footer>
+
+<script src="app.js"></script>
+<script>
+const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
+localStorage.setItem("pt_kat", KAT);
+
+function demoBanner(){
+  if(PT.isPaid()) return "";
+  return `<div class="demo-banner">
+    <span>🔓 <b>Wersja demo.</b> Darmowo: kategoria B + dział „Znaki i sygnały" (tryb nauki).</span>
+    <a class="btn" href="cennik.html">Odblokuj wszystko — ${PT.ACCESS.cena} zł →</a>
+  </div>`;
+}
+
+function trybCard(emoji, tytul, opis, href, locked, primary){
+  return `<a class="mode-card tryb ${locked?'locked':''}" href="${locked?'cennik.html?powod='+encodeURIComponent(tytul):href}">
+    ${locked?'<span class="lock">🔒</span>':''}
+    <h3>${emoji} ${tytul}</h3>
+    <p>${opis}</p>
+    <span class="btn ${primary?'':'ghost'}">${locked?'Odblokuj':'Wybierz'} →</span>
+  </a>`;
+}
+
+function render(idx){
+  const meta = idx.kategorie[KAT];
+  const m = PT.CAT_META[KAT] || {n:KAT};
+  if(!meta){ document.getElementById("app").innerHTML='<p class="muted">Brak kategorii.</p>'; return; }
+
+  const dzialy = (meta.dzialy||[]).map(d=>{
+    const locked = !PT.canDzial(KAT, d.slug);
+    const href = `nauka.html?kat=${KAT}&dzial=${d.slug}`;
+    return `<a class="cat dzial ${locked?'locked':''}" href="${locked?'cennik.html?powod=dzial':href}">
+      ${locked?'<span class="lock">🔒</span>':''}
+      <div class="code-sm">${d.nazwa}</div>
+      <div class="count">${d.liczba} pytań</div>
+    </a>`;
+  }).join("");
+
+  document.getElementById("app").innerHTML = `
+    <section class="hero" style="padding:48px 0 12px">
+      <div class="kicker"><span class="dot"></span> Kategoria ${KAT}</div>
+      <h1>${m.n}</h1>
+      <p>${meta.razem} pytań · ${meta.podstawowe} podstawowych + ${meta.specjalistyczne} specjalistycznych</p>
+    </section>
+    ${demoBanner()}
+
+    <section class="section" style="margin-top:34px">
+      <h2>🎯 Tryby nauki</h2>
+      <div class="modes" style="margin-top:18px">
+        ${trybCard("📚","Nauka — cały zakres",`Wszystkie ${meta.razem} pytań kategorii ${KAT} bez limitu czasu, z natychmiastowym feedbackiem.`, `nauka.html?kat=${KAT}`, !PT.isPaid(), true)}
+        ${trybCard("📝","Symulator","32 pytania, czas i punktacja jak na egzaminie. Ciemny, wygodny interfejs.", `egzamin.html?kat=${KAT}`, !PT.canTryb("egzamin"), false)}
+        ${trybCard("🏛️","Egzamin państwowy 1:1","Wierna kopia interfejsu WORD. Tak wygląda prawdziwy egzamin.", `egzamin-word.html?kat=${KAT}`, !PT.canTryb("word"), false)}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>📂 Działy tematyczne</h2>
+      <p class="muted" style="margin-top:-4px">Ucz się partiami. <span style="opacity:.7">Podział tematyczny generowany automatycznie.</span></p>
+      <div class="cat-grid" style="margin-top:18px">${dzialy}</div>
+    </section>`;
+}
+
+PT.loadIndex().then(render).catch(e=>{
+  document.getElementById("app").innerHTML='<p class="muted">Błąd ładowania.</p>'; console.error(e);
+});
+</script>
+</body>
+</html>

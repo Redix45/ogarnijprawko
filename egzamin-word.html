@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egzamin państwowy 1:1 — ogarnijprawko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Wierny motyw WORD/PWPW (układ jak zdamyto) ===== */
+:root{
+  --wn:#1f4e96;        /* niebieski paski/przyciski */
+  --wn2:#1a4585;
+  --wyellow:#f0a500; --wyellow2:#e09600;
+  --wgray:#8a96a3; --wgray-box:#7a8794;
+  --wbg:#f0f1f3; --wpanel:#fff; --wline:#d3d9e0;
+  --wtxt:#222; --wmuted:#6a7480; --wgreen:#7cc242;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Arimo",Arial,sans-serif;background:var(--wbg);color:var(--wtxt);min-height:100vh}
+.wrap{max-width:1160px;margin:0 auto;background:var(--wbg)}
+
+/* baner demo/górny */
+.wtopbanner{
+  background:#ececec;border-bottom:1px solid #ddd;padding:10px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.wtopbanner .t b{color:var(--wn);font-size:1.05rem}
+.wtopbanner .t span{color:#555;font-size:.9rem}
+.wtopbanner a{background:var(--wn);color:#fff;text-decoration:none;padding:11px 22px;border-radius:5px;font-weight:700;font-size:.95rem}
+
+/* pasek MENU + flagi */
+.wmenu{
+  background:var(--wpanel);border-bottom:1px solid var(--wline);
+  display:flex;align-items:center;padding:9px 16px;gap:14px;
+}
+.wmenu .menu{font-weight:600;color:#555;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:.95rem}
+.wmenu .menu::before{content:"☰";font-size:1.2rem}
+.wmenu .flags{margin-left:auto;display:flex;align-items:center;gap:7px}
+.wmenu .flags button{border:none;background:none;cursor:pointer;font-size:1.15rem;padding:2px;border-radius:3px;opacity:.55;line-height:1}
+.wmenu .flags button.on{opacity:1;outline:2px solid var(--wn);outline-offset:1px}
+.wmenu .flags .ico{color:#9aa3ad;font-size:1.1rem;margin-left:4px}
+
+/* pasek działu */
+.wdzial{background:var(--wn);color:#fff;text-align:center;padding:8px;font-size:.95rem;font-weight:500}
+.wdzial b{font-weight:700}
+
+/* główny układ: media + sidebar */
+.wgrid{display:grid;grid-template-columns:1fr 270px;gap:14px;padding:14px 16px}
+.wmedia-col{min-width:0}
+.wmedia{
+  position:relative;background:#fff;border:1px solid var(--wline);border-radius:3px;
+  min-height:430px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.wmedia img,.wmedia video{width:100%;height:100%;max-height:480px;object-fit:contain;display:block;background:#000}
+.wmedia .reading{text-align:center;color:#9aa3ad;padding:40px}
+.wmedia .reading .cam{font-size:3.2rem;opacity:.5;margin-bottom:14px}
+.wmedia .reading .t1{color:#7a8590;font-size:1rem;margin-bottom:18px}
+.wmedia .reading .t2{font-size:.92rem;color:#9aa3ad}
+.wmedia .reading .t2 b{color:var(--wn)}
+.wmedia .qid{position:absolute;left:8px;bottom:8px;background:rgba(120,130,140,.85);color:#fff;font-size:.72rem;padding:2px 7px;border-radius:3px;font-family:monospace}
+
+/* sidebar */
+.wside{display:flex;flex-direction:column;gap:9px}
+.wside .pkt{background:var(--wn);color:#fff;text-align:center;padding:8px;border-radius:4px;font-weight:600;font-size:.95rem}
+.wside .end{background:var(--wyellow);color:#3a2c00;border:none;padding:11px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.98rem}
+.wside .end:hover{background:var(--wyellow2)}
+.wcounters{display:flex;gap:10px;margin-top:4px}
+.wcounters .c{flex:1}
+.wcounters .c .lab{font-size:.78rem;color:var(--wmuted);line-height:1.25;margin-bottom:4px}
+.wcounters .c .lab b{color:var(--wtxt)}
+.wcounters .c .box{background:var(--wgray-box);color:#fff;text-align:center;padding:9px;border-radius:4px;font-weight:600;font-size:.92rem}
+.wcounters .c.cur .box{background:#5b6873}
+.wtime{margin-top:4px}
+.wtime .bar{height:22px;background:#e4e7ea;border:1px solid var(--wline);border-radius:4px;position:relative;overflow:hidden}
+.wtime .bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(45deg,var(--wgreen),var(--wgreen) 7px,#6fb337 7px,#6fb337 14px);transition:width 1s linear}
+.wtime .bar.low i{background:repeating-linear-gradient(45deg,#e06b6b,#e06b6b 7px,#c95555 7px,#c95555 14px)}
+.wtime .lab{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#3a4651;font-weight:600}
+.wside .start{background:var(--wn);color:#fff;border:none;padding:11px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;font-size:1rem;margin-top:2px}
+.wside .start:hover{background:var(--wn2)}
+.wside .start:disabled{background:#a9b4c0;cursor:not-allowed}
+.wside .spacer{flex:1;min-height:18px}
+.wside .fav{background:var(--wgray);color:#fff;border:none;padding:10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:.9rem}
+.wside .just{background:var(--wn);color:#fff;border:none;padding:10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:.9rem}
+.wside .next{background:var(--wyellow);color:#3a2c00;border:none;padding:12px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;font-size:1rem}
+.wside .next:hover{background:var(--wyellow2)}
+
+/* pytanie + odpowiedzi */
+.wqtext{
+  background:#fff;border:1px solid var(--wline);border-radius:3px;
+  margin:0 16px;padding:15px 18px;font-size:1.12rem;font-weight:600;line-height:1.4;
+}
+.wtn{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 16px 22px}
+.wtn button{
+  background:var(--wn);color:#fff;border:none;padding:20px;border-radius:4px;
+  font-size:1.2rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.1s;
+}
+.wtn button:hover:not(:disabled){background:var(--wn2)}
+.wtn button.sel{background:#0f8a3c;box-shadow:inset 0 0 0 3px rgba(255,255,255,.4)}
+.wtn button:disabled{background:#aeb8c4;cursor:not-allowed}
+.wabc{display:flex;flex-direction:column;gap:11px;padding:14px 16px 22px}
+.wabc button{
+  display:flex;gap:14px;align-items:center;text-align:left;
+  background:#fff;border:2px solid var(--wline);color:var(--wtxt);
+  padding:15px 18px;border-radius:4px;font-size:1.04rem;cursor:pointer;font-family:inherit;
+}
+.wabc button:hover:not(:disabled){border-color:var(--wn);background:#f3f7fd}
+.wabc button.sel{border-color:var(--wn);background:#e3eefc}
+.wabc button:disabled{opacity:.6;cursor:not-allowed}
+.wabc .k{background:var(--wn);color:#fff;min-width:32px;height:32px;display:grid;place-items:center;border-radius:4px;font-weight:700;flex-shrink:0}
+
+/* intro / wynik */
+.wcenter{padding:40px 18px;display:flex;justify-content:center}
+.wbox{background:#fff;border:1px solid var(--wline);border-radius:8px;max-width:560px;width:100%;padding:32px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.wbox h1{margin:0 0 8px;color:var(--wn);font-size:1.55rem}
+.wbox p,.wbox li{color:var(--wmuted);line-height:1.6}
+.wbox ul{padding-left:20px}
+.wstart-big{width:100%;margin-top:16px;background:var(--wn);color:#fff;border:none;padding:16px;font-size:1.08rem;font-weight:700;border-radius:6px;cursor:pointer;font-family:inherit}
+.wstart-big:hover{background:var(--wn2)}
+.wlink{display:inline-block;margin-top:12px;color:var(--wn);text-decoration:none;font-weight:600}
+.wresult{text-align:center}
+.wresult .big{font-size:2.2rem;font-weight:700;margin:8px 0}
+.wresult.pass .big{color:#1d8a3e}.wresult.fail .big{color:#c23636}
+.wresult .pkt2{font-size:1.15rem;color:var(--wmuted);margin-bottom:18px}
+.wbtns{display:flex;gap:12px}
+.wbtns button,.wbtns a{flex:1;text-align:center;text-decoration:none;padding:13px;border-radius:6px;font-weight:700;cursor:pointer;font-family:inherit;font-size:1rem;border:none}
+.wbtns .p{background:var(--wn);color:#fff}.wbtns .s{background:#eef1f5;color:var(--wn);border:1px solid var(--wline)}
+
+@media(max-width:780px){
+  .wgrid{grid-template-columns:1fr}
+  .wside{flex-direction:row;flex-wrap:wrap}
+  .wside .pkt,.wside .end,.wtime,.wside .start{flex:1 1 46%}
+  .wside .spacer{display:none}
+  .wside .fav,.wside .just,.wside .next{flex:1 1 30%}
+  .wmedia{min-height:240px}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script src="app.js"></script>
+<script>
+const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
+if(PT.gate(PT.canTryb("word"),"word")) throw new Error("locked");
+const E = PT.EXAM;
+let IDX_DATA=null, DATA=null, pyt=[], idx=0, odp=[], tick=null, sek=0, sekMax=0, faza="czytanie";
+
+const root=document.getElementById("root");
+const dzialNazwa = q => (IDX_DATA && IDX_DATA.dzialNazwy && IDX_DATA.dzialNazwy[q.dzial]) || "Pytania ogólne";
+
+/* ---------- intro ---------- */
+function intro(){
+  root.innerHTML=`
+   <div class="wmenu"><span class="menu">MENU</span></div>
+   <div class="wcenter"><div class="wbox">
+     <h1>Egzamin państwowy — kategoria ${KAT}</h1>
+     <p>Interfejs i przebieg 1:1 jak na egzaminie teoretycznym w WORD.</p>
+     <ul>
+       <li><b>Część podstawowa</b> — 20 pytań TAK/NIE. ${E.podstawowe.czas.czytanie} s na zapoznanie, potem ${E.podstawowe.czas.odpowiedz} s na odpowiedź. Możesz kliknąć <b>START</b>, by od razu zobaczyć materiał.</li>
+       <li><b>Część specjalistyczna</b> — 12 pytań A/B/C, po ${E.specjalistyczne.czas} s.</li>
+       <li>Maksymalnie <b>${E.maxPkt} pkt</b>, wynik pozytywny od <b>${E.prog} pkt</b>.</li>
+       <li>Bez powrotu do poprzedniego pytania.</li>
+     </ul>
+     <button class="wstart-big" onclick="begin()">Rozpocznij egzamin</button><br>
+     <a class="wlink" href="kategoria.html?kat=${KAT}">← powrót</a>
+   </div></div>`;
+}
+function begin(){ pyt=PT.buildExam(DATA); idx=0; odp=new Array(pyt.length).fill(null); render(); }
+
+/* ---------- timer ---------- */
+function startTimer(){
+  clearInterval(tick);
+  const q=pyt[idx];
+  if(q.typ==="podstawowy"){ faza="czytanie"; sek=sekMax=E.podstawowe.czas.czytanie; }
+  else { faza="odpowiedz"; sek=sekMax=E.specjalistyczne.czas; }
+  applyPhase(); paintTime();
+  tick=setInterval(()=>{
+    sek--;
+    if(sek<=0){
+      if(pyt[idx].typ==="podstawowy" && faza==="czytanie"){ enterAnswer(); }
+      else { clearInterval(tick); next(); }
+    } else paintTime();
+  },1000);
+}
+function enterAnswer(){
+  faza="odpowiedz"; sek=sekMax=E.podstawowe.czas.odpowiedz;
+  showMedia(); applyPhase(); paintTime();
+}
+function paintTime(){
+  const bar=document.getElementById("tbar"); if(!bar) return;
+  const pct=Math.max(0,sek/sekMax*100);
+  bar.querySelector("i").style.width=pct+"%";
+  bar.classList.toggle("low",sek<=5);
+  document.getElementById("tlab").textContent=`Czas: ${PT.fmtTime(sek)} z ${PT.fmtTime(sekMax)} s`;
+}
+function applyPhase(){
+  const enable=faza==="odpowiedz";
+  document.querySelectorAll(".wtn button,.wabc button").forEach(b=>b.disabled=!enable);
+  const st=document.getElementById("startBtn");
+  if(st) st.disabled = enable || pyt[idx].typ!=="podstawowy";
+}
+
+/* ---------- media ---------- */
+function mediaInner(q,show){
+  if(!show && q.typ==="podstawowy"){
+    return `<div class="reading">
+      <div class="cam">📷</div>
+      <div class="t1">Czas na zapoznanie się z treścią pytania.</div>
+      <div class="t2">Kliknij <b>START</b>, aby szybciej wyświetlić ZDJĘCIE</div>
+    </div><div class="qid">ID: ${q.id}</div>`;
+  }
+  if(q.media && q.mediaTyp==="image"){
+    const base=q.media.replace(/\.(jpe?g|png|gif)$/i,"");
+    return `<img alt="" src="media/img/${encodeURIComponent(q.media)}"
+      onerror="this.outerHTML='<div class=&quot;reading&quot;><div class=&quot;cam&quot;>🖼️</div><div class=&quot;t2&quot;>${base}</div></div>'">
+      <div class="qid">ID: ${q.id}</div>`;
+  }
+  if(q.media && q.mediaTyp==="video"){
+    return `<div class="reading"><div class="cam">▶</div><div class="t2">Materiał wideo — wersja online wkrótce</div></div><div class="qid">ID: ${q.id}</div>`;
+  }
+  return `<div class="reading"><div class="t2" style="opacity:.5">— pytanie tekstowe —</div></div><div class="qid">ID: ${q.id}</div>`;
+}
+function showMedia(){
+  const m=document.getElementById("media"); if(m) m.innerHTML=mediaInner(pyt[idx],true);
+}
+
+/* ---------- render ---------- */
+function render(){
+  if(idx>=pyt.length) return wynik();
+  const q=pyt[idx], L=PT.locQ(q);
+  const podDone=pyt.slice(0,idx+1).filter(x=>x.typ==="podstawowy").length;
+  const specDone=pyt.slice(0,idx+1).filter(x=>x.typ==="specjalistyczny").length;
+  const isPod=q.typ==="podstawowy";
+  const showImg = !isPod; // spec od razu pokazuje, podstawowe po START/czasie
+
+  let ans;
+  if(isPod){
+    ans=`<div class="wtn">
+      <button data-k="T" disabled>${PT.t("tak")}</button>
+      <button data-k="N" disabled>${PT.t("nie")}</button></div>`;
+  } else {
+    ans=`<div class="wabc">`+["A","B","C"].map(k=>
+      `<button data-k="${k}" disabled><span class="k">${k}</span><span>${(L.odp&&L.odp[k])||""}</span></button>`
+    ).join("")+`</div>`;
+  }
+  const ostatnie=idx+1>=pyt.length;
+
+  root.innerHTML=`
+    <div class="wmenu">
+      <span class="menu">MENU</span>
+      <span class="flags" id="flags"></span>
+    </div>
+    <div class="wdzial">Dział: <b>${dzialNazwa(q)}</b></div>
+    <div class="wgrid">
+      <div class="wmedia-col">
+        <div class="wmedia" id="media">${mediaInner(q,showImg)}</div>
+      </div>
+      <div class="wside">
+        <div class="pkt">Punktów: ${q.punkty}</div>
+        <button class="end" onclick="if(confirm('Zakończyć egzamin i zobaczyć wynik?')) wynik()">Zakończ egzamin</button>
+        <div class="wcounters">
+          <div class="c ${isPod?'cur':''}"><div class="lab">Pytania<br><b>podstawowe:</b></div><div class="box">${podDone} z 20</div></div>
+          <div class="c ${isPod?'':'cur'}"><div class="lab">Pytania<br><b>specjalistyczne:</b></div><div class="box">${specDone} z 12</div></div>
+        </div>
+        <div class="wtime"><div class="bar" id="tbar"><i></i><span class="lab" id="tlab"></span></div></div>
+        <button class="start" id="startBtn" onclick="onStart()">Start</button>
+        <div class="spacer"></div>
+        <button class="fav" onclick="this.textContent='★ W ulubionych'">☆ Dodaj do ulubionych</button>
+        <button class="just" onclick="alert('Uzasadnienia odpowiedzi — dostępne wkrótce.')">? Uzasadnienie odpowiedzi</button>
+        <button class="next ${ostatnie?'':''}" onclick="next()">${ostatnie?'Zakończ egzamin':'Następne pytanie'}</button>
+      </div>
+    </div>
+    <div class="wqtext">${L.tekst}</div>
+    ${ans}`;
+
+  renderFlags();
+  document.querySelectorAll(".wtn button,.wabc button").forEach(b=>{
+    b.onclick=()=>{ if(b.disabled) return;
+      document.querySelectorAll(".wtn button,.wabc button").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel"); odp[idx]=b.dataset.k; };
+  });
+  startTimer();
+}
+function onStart(){
+  if(pyt[idx].typ==="podstawowy" && faza==="czytanie"){ clearInterval(tick); enterAnswer();
+    tick=setInterval(()=>{ sek--; if(sek<=0){clearInterval(tick);next();} else paintTime(); },1000);
+  }
+}
+function next(){ clearInterval(tick); idx++; render(); }
+
+function renderFlags(){
+  const f=document.getElementById("flags"); if(!f) return;
+  const FL={pl:"🇵🇱",en:"🇬🇧",de:"🇩🇪",ua:"🇺🇦"};
+  f.innerHTML=Object.keys(FL).map(l=>`<button data-l="${l}" class="${l===APP.lang?'on':''}">${FL[l]}</button>`).join("")+`<span class="ico">?</span>`;
+  f.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    APP.lang=b.dataset.l; localStorage.setItem("pt_lang",b.dataset.l);
+    // odśwież teksty bez resetu timera
+    const q=pyt[idx],L=PT.locQ(q);
+    document.querySelector(".wqtext").textContent=L.tekst;
+    if(q.typ==="specjalistyczny"){ document.querySelectorAll(".wabc button").forEach((btn,i)=>{
+      const k=["A","B","C"][i]; btn.querySelector("span:last-child").textContent=(L.odp&&L.odp[k])||""; }); }
+    renderFlags();
+  });
+}
+
+/* ---------- konfetti ---------- */
+function confetti(){
+  const c=document.createElement("canvas");c.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:999";
+  c.width=innerWidth;c.height=innerHeight;document.body.appendChild(c);
+  const x=c.getContext("2d"),COL=["#1f4e96","#7cc242","#f0a500","#c23636","#0f8a3c"];
+  const P=Array.from({length:140},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,w:6+Math.random()*6,h:8+Math.random()*8,vy:2+Math.random()*3.5,vx:-1.5+Math.random()*3,r:Math.random()*6.28,vr:-.1+Math.random()*.2,c:COL[Math.floor(Math.random()*COL.length)]}));
+  let fr=0;(function d(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore();});if(++fr<300)requestAnimationFrame(d);else c.remove();})();
+}
+
+/* ---------- wynik ---------- */
+function wynik(){
+  clearInterval(tick);
+  let pkt=0,dobre=0;
+  pyt.forEach((q,i)=>{ if(odp[i]===q.poprawna){ pkt+=q.punkty; dobre++; } });
+  const zdane=pkt>=E.prog; if(zdane) confetti();
+  root.innerHTML=`
+    <div class="wmenu"><span class="menu">MENU</span></div>
+    <div class="wdzial">Wynik egzaminu — kategoria ${KAT}</div>
+    <div class="wcenter"><div class="wbox wresult ${zdane?'pass':'fail'}">
+      <div style="font-size:2.6rem">${zdane?'✅':'❌'}</div>
+      <div class="big">${zdane?'WYNIK POZYTYWNY':'WYNIK NEGATYWNY'}</div>
+      <div class="pkt2"><b>${pkt}</b> / ${E.maxPkt} pkt &nbsp;·&nbsp; ${dobre}/${pyt.length} poprawnych<br>
+        <span style="font-size:.9rem">próg zaliczenia: ${E.prog} pkt</span></div>
+      <div class="wbtns">
+        <button class="p" onclick="begin()">Jeszcze raz</button>
+        <a class="s" href="kategoria.html?kat=${KAT}">Powrót</a>
+      </div>
+    </div></div>`;
+}
+
+window.begin=begin; window.next=next; window.onStart=onStart; window.wynik=wynik;
+PT.loadIndex().then(i=>{ IDX_DATA=i; return PT.loadKat(KAT); }).then(d=>{ DATA=d; intro(); })
+  .catch(e=>{ if(e.message!=="locked"){ root.innerHTML='<p style="padding:40px">Błąd ładowania.</p>'; console.error(e);} });
+</script>
+</body>
+</html>

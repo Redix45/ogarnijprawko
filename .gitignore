@@ -1,0 +1,14 @@
+# media (hostowane osobno — za duże na repo Pages)
+media/img/
+media/vid/
+
+# źródła ETL (duże / robocze)
+_src/*.xlsx
+_src/*.zip
+_src/*.log
+_src/peek.json
+
+# system
+Thumbs.db
+.DS_Store
+desktop.ini

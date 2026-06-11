@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Symulator egzaminu WORD — ogarnijprawko</title>
+<meta name="description" content="Wierny symulator państwowego egzaminu teoretycznego na prawo jazdy: 32 pytania, punktacja 3/2/1, próg 68/74.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header"><div class="container bar">
+  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <nav class="nav">
+    <a href="index.html">Start</a>
+    <a href="kategoria.html" id="navKat">Kategoria</a>
+    <a href="cennik.html">Cennik</a>
+  </nav>
+</div></header>
+
+<main class="container" id="app"><div class="spinner"></div></main>
+
+<script src="app.js"></script>
+<script>
+const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
+document.getElementById("navKat").href = "kategoria.html?kat="+KAT;
+if(PT.gate(PT.canTryb("egzamin"),"egzamin")) throw new Error("locked");
+const E = PT.EXAM;
+let pyt = [], idx = 0, odp = [], tick = null, sekundy = 0, faza = "czytanie";
+
+/* ---- ekran startowy ---- */
+function intro(){
+  document.getElementById("app").innerHTML = `
+   <section class="hero" style="padding-bottom:10px">
+     <h1>Symulator egzaminu <span class="hl">WORD</span></h1>
+     <p>Kategoria <b>${KAT}</b> · 32 pytania (20 podstawowych + 12 specjalistycznych) · max ${E.maxPkt} pkt · próg zaliczenia ${E.prog} pkt.</p>
+   </section>
+   <div class="qcard" style="max-width:560px;margin:0 auto">
+     <ul class="muted" style="line-height:1.9;margin:0 0 18px;padding-left:20px">
+       <li>Pytania <b>podstawowe</b> (TAK/NIE): ${E.podstawowe.czas.czytanie}s na zapoznanie + ${E.podstawowe.czas.odpowiedz}s na odpowiedź.</li>
+       <li>Pytania <b>specjalistyczne</b> (A/B/C): ${E.specjalistyczne.czas}s na pytanie.</li>
+       <li><b>Nie ma powrotu</b> do poprzednich pytań — jak na prawdziwym egzaminie.</li>
+       <li>Brak odpowiedzi w czasie = 0 punktów.</li>
+     </ul>
+     <button class="btn big" style="width:100%" onclick="start()">Rozpocznij egzamin →</button>
+   </div>`;
+}
+
+function start(){
+  pyt = PT.buildExam(window._data);
+  idx = 0; odp = new Array(pyt.length).fill(null);
+  render();
+}
+
+/* ---- timer ---- */
+function startTimer(){
+  clearInterval(tick);
+  const q = pyt[idx];
+  if(q.typ==="podstawowy"){
+    faza = "czytanie"; sekundy = E.podstawowe.czas.czytanie;
+  } else {
+    faza = "odpowiedz"; sekundy = E.specjalistyczne.czas;
+  }
+  paintTimer();
+  tick = setInterval(()=>{
+    sekundy--;
+    if(sekundy<=0){
+      if(q.typ==="podstawowy" && faza==="czytanie"){
+        faza="odpowiedz"; sekundy=E.podstawowe.czas.odpowiedz; enableAnswers(); paintTimer();
+      } else {
+        clearInterval(tick); next();
+      }
+    } else paintTimer();
+  },1000);
+}
+function paintTimer(){
+  const el=document.getElementById("timer"); if(!el)return;
+  el.textContent = PT.t("czas")+": "+PT.fmtTime(sekundy) + (faza==="czytanie"?" 👀":"");
+  el.classList.toggle("low", sekundy<=5);
+}
+
+/* ---- render pytania ---- */
+function render(){
+  if(idx>=pyt.length) return wynik();
+  const q = pyt[idx]; const L = PT.locQ(q);
+  const czyt = q.typ==="podstawowy" && faza!=="odpowiedz"; // dla podstawowych: blokada w fazie czytania (ustawiana w startTimer)
+
+  let answers;
+  if(q.typ==="podstawowy"){
+    answers = `<div class="tn-row">
+      <button class="ans tak" data-k="T" disabled>${PT.t("tak")}</button>
+      <button class="ans tak" data-k="N" disabled>${PT.t("nie")}</button>
+    </div>`;
+  } else {
+    answers = `<div class="answers">` + ["A","B","C"].map(k=>
+      `<button class="ans" data-k="${k}"><span class="k">${k}</span>${(L.odp&&L.odp[k])||""}</button>`
+    ).join("") + `</div>`;
+  }
+
+  document.getElementById("app").innerHTML = `
+    <div class="quiz-top">
+      <span class="pill">${PT.t("pyt")} ${idx+1}/${pyt.length}</span>
+      <span class="pill timer" id="timer">—</span>
+      <div class="progress"><i style="width:${(idx/pyt.length)*100}%"></i></div>
+    </div>
+    <div class="qcard">
+      <div class="qmeta">
+        <span>${q.typ==="podstawowy"?"podstawowe":"specjalistyczne"}</span>
+        <span class="pts">${q.punkty} ${PT.t("pkt")}</span>
+      </div>
+      ${PT.mediaHtml(q)}
+      <p class="qtext">${L.tekst}</p>
+      ${answers}
+      <div class="quiz-nav">
+        <button class="btn ghost" id="skip" onclick="next()">${idx+1<pyt.length?PT.t("dalej"):PT.t("zakoncz")} →</button>
+      </div>
+    </div>`;
+
+  // dla specjalistycznych — od razu klikalne; dla podstawowych enableAnswers() po fazie czytania
+  if(q.typ==="specjalistyczny") enableAnswers();
+  startTimer();
+}
+
+function enableAnswers(){
+  const q = pyt[idx];
+  document.querySelectorAll(".ans").forEach(b=>{
+    b.disabled = false;
+    b.onclick = ()=>{
+      document.querySelectorAll(".ans").forEach(x=>x.classList.remove("picked"));
+      b.classList.add("picked");
+      odp[idx] = b.dataset.k;
+    };
+  });
+}
+
+function next(){ clearInterval(tick); idx++; render(); }
+
+/* ---- konfetti (canvas, bez bibliotek) ---- */
+function confetti(){
+  const c=document.createElement("canvas");
+  c.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:999";
+  c.width=innerWidth; c.height=innerHeight; document.body.appendChild(c);
+  const ctx=c.getContext("2d");
+  const COLORS=["#22c55e","#4ade80","#38bdf8","#a78bfa","#fbbf24","#f472b6"];
+  const P=Array.from({length:160},()=>({
+    x:Math.random()*c.width, y:-20-Math.random()*c.height*0.5,
+    w:6+Math.random()*6, h:8+Math.random()*8,
+    vy:2+Math.random()*3.5, vx:-1.5+Math.random()*3,
+    rot:Math.random()*Math.PI, vr:-0.1+Math.random()*0.2,
+    col:COLORS[Math.floor(Math.random()*COLORS.length)]
+  }));
+  let frames=0;
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{
+      p.y+=p.vy; p.x+=p.vx+Math.sin(p.y*0.02); p.rot+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.col; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+    });
+    if(++frames<320) requestAnimationFrame(draw); else c.remove();
+  })();
+}
+
+/* ---- wynik ---- */
+function wynik(){
+  clearInterval(tick);
+  let zdobyte=0, dobre=0;
+  pyt.forEach((q,i)=>{ if(odp[i]===q.poprawna){ zdobyte+=q.punkty; dobre++; } });
+  const zdane = zdobyte >= E.prog;
+  if(zdane) confetti();
+  document.getElementById("app").innerHTML = `
+    <div class="result ${zdane?'pass':'fail'}" style="margin-top:30px">
+      <div class="badge">${zdane?'🎉':'😔'}</div>
+      <h2>${zdane?PT.t("zdane"):PT.t("niezdane")}</h2>
+      <div class="score">
+        <b style="color:${zdane?'var(--accent2)':'var(--danger)'}">${zdobyte}</b> / ${E.maxPkt} pkt
+        &nbsp;·&nbsp; ${dobre}/${pyt.length} poprawnych
+        <br><span class="muted">próg zaliczenia: ${E.prog} pkt</span>
+      </div>
+      <div class="quiz-nav" style="max-width:420px;margin:0 auto">
+        <button class="btn" onclick="start()">${PT.t("jeszczeRaz")}</button>
+        <a class="btn ghost" href="nauka.html?kat=${KAT}">Tryb nauki</a>
+      </div>
+    </div>`;
+}
+
+window.start=start; window.next=next;
+PT.loadIndex()
+  .then(()=>PT.loadKat(KAT))
+  .then(data=>{ window._data=data; intro(); })
+  .catch(e=>{ document.getElementById("app").innerHTML='<p class="muted">Błąd ładowania pytań.</p>'; console.error(e); });
+</script>
+</body>
+</html>

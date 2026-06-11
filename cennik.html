@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cennik — ogarnijprawko (25 zł na zawsze)</title>
+<meta name="description" content="Pełny dostęp do wszystkich kategorii, działów i trybu egzaminu państwowego 1:1 — 25 zł jednorazowo, na zawsze.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.price-wrap{max-width:560px;margin:0 auto}
+.price-card{
+  position:relative;border-radius:24px;padding:38px 34px;overflow:hidden;
+  background:linear-gradient(var(--card-solid),var(--card-solid)) padding-box,
+             linear-gradient(150deg,rgba(34,197,94,.6),rgba(56,189,248,.3) 50%,rgba(167,139,250,.4)) border-box;
+  border:1.5px solid transparent;box-shadow:var(--shadow);
+}
+.price-card::before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;top:-180px;right:-120px;background:radial-gradient(circle,var(--accent-glow),transparent 65%);opacity:.5}
+.price-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#86efac;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.price-amount{display:flex;align-items:baseline;gap:10px;margin:6px 0 4px}
+.price-amount .v{font-size:3.4rem;font-weight:700;letter-spacing:-.03em;background:linear-gradient(120deg,#4ade80,#38bdf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.price-amount .u{font-size:1.3rem;font-weight:600;color:var(--muted)}
+.price-sub{color:var(--muted);margin:0 0 24px}
+.price-sub b{color:#86efac}
+.feat{list-style:none;padding:0;margin:0 0 26px;display:flex;flex-direction:column;gap:13px}
+.feat li{display:flex;gap:12px;align-items:flex-start;font-size:1rem;line-height:1.4}
+.feat .ic{color:var(--accent2);font-weight:800;flex-shrink:0;margin-top:1px}
+.feat .x{color:var(--muted);opacity:.6}
+.pay-note{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:16px;color:var(--muted);font-size:.85rem;flex-wrap:wrap}
+.pay-note span{display:inline-flex;align-items:center;gap:5px}
+.powod-info{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.28);color:#fde68a;border-radius:14px;padding:13px 18px;margin-bottom:22px;font-size:.94rem;text-align:center}
+.dev-unlock{margin-top:30px;text-align:center;font-size:.8rem;color:var(--muted)}
+.dev-unlock button{background:none;border:1px dashed var(--line-bright);color:var(--muted);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:inherit;font-size:.78rem}
+.guarantee{text-align:center;color:var(--muted);font-size:.86rem;margin-top:20px}
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="container bar">
+  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <nav class="nav">
+    <a href="index.html">Start</a>
+    <a href="cennik.html" class="active">Cennik</a>
+  </nav>
+</div></header>
+
+<main class="container">
+  <section class="hero" style="padding:64px 0 26px">
+    <div class="kicker"><span class="dot"></span> Jednorazowo · bez subskrypcji</div>
+    <h1>Pełny dostęp <span class="hl">na zawsze</span></h1>
+    <p>Jedna płatność. Wszystkie kategorie, działy tematyczne i egzamin państwowy 1:1. Bez abonamentu, bez ukrytych kosztów.</p>
+  </section>
+
+  <div class="price-wrap">
+    <div id="powod"></div>
+    <div class="price-card">
+      <span class="price-badge">🔓 Dostęp lifetime</span>
+      <div class="price-amount"><span class="v">25</span><span class="u">zł</span></div>
+      <p class="price-sub">jednorazowo · <b>na zawsze</b> · wszystkie przyszłe aktualizacje</p>
+
+      <ul class="feat">
+        <li><span class="ic">✓</span> Wszystkie <b>12 kategorii</b> (A, B, C, D, T i więcej)</li>
+        <li><span class="ic">✓</span> Komplet <b>3525 oficjalnych pytań</b> WORD</li>
+        <li><span class="ic">✓</span> Podział na <b>działy tematyczne</b> — ucz się partiami</li>
+        <li><span class="ic">✓</span> <b>Symulator</b> egzaminu z punktacją</li>
+        <li><span class="ic">✓</span> <b>Egzamin państwowy 1:1</b> — wierny interfejs WORD</li>
+        <li><span class="ic">✓</span> 4 języki: PL · EN · DE · UA</li>
+      </ul>
+
+      <button class="btn big" style="width:100%" id="payBtn">💳 Kup dostęp — 25 zł</button>
+      <div class="pay-note">
+        <span>🔵 BLIK</span><span>💳 Karta</span><span>🔒 Bezpieczna płatność Stripe</span>
+      </div>
+    </div>
+
+    <p class="guarantee">Demo (kategoria B, dział „Znaki i sygnały") pozostaje darmowe — sprawdź zanim kupisz.</p>
+
+    <div class="dev-unlock">
+      <p>Tryb testowy (do czasu podłączenia płatności):</p>
+      <button id="devUnlock">⚙️ Odblokuj lokalnie (test)</button>
+    </div>
+  </div>
+</main>
+
+<footer class="footer container">
+  ogarnijprawko · projekt edukacyjny · nie jest powiązany z WORD ani MI.
+</footer>
+
+<script src="app.js"></script>
+<script>
+/* ===== KONFIG STRIPE — uzupełnij po założeniu konta =====
+   Najprostszy wariant: Stripe Payment Link (bez kodu backendu na start).
+   1. Stripe Dashboard → Payment Links → nowy link, produkt 25 PLN, włącz BLIK.
+   2. Wklej URL poniżej. 3. W "After payment" ustaw redirect na:  .../dziekujemy.html
+   Docelowo: webhook checkout.session.completed → Firebase oznacza konto jako paid. */
+const STRIPE = { paymentLink: "" };  // np. "https://buy.stripe.com/xxxxx"
+
+/* powód przekierowania */
+const POWODY = {
+  "dzial":"Ten dział jest dostępny w pełnej wersji.",
+  "pelny-zakres":"Nauka całej kategorii wymaga pełnego dostępu.",
+  "egzamin":"Symulator egzaminu jest dostępny w pełnej wersji.",
+  "word":"Egzamin państwowy 1:1 jest dostępny w pełnej wersji.",
+};
+const powod = PT.qs("powod");
+if(powod && POWODY[powod]){
+  document.getElementById("powod").innerHTML =
+    `<div class="powod-info">🔒 ${POWODY[powod]} Odblokuj raz — masz na zawsze.</div>`;
+}
+
+/* jeśli już kupione */
+if(PT.isPaid()){
+  document.getElementById("payBtn").outerHTML =
+    '<div class="powod-info" style="background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac">✅ Masz pełny dostęp. Dziękujemy!</div>';
+}
+
+document.getElementById("payBtn").onclick = ()=>{
+  if(STRIPE.paymentLink){ location.href = STRIPE.paymentLink; }
+  else { alert("Płatność będzie aktywna po podłączeniu konta Stripe.\n\nNa razie użyj „Odblokuj lokalnie (test)” na dole strony."); }
+};
+
+document.getElementById("devUnlock").onclick = ()=>{
+  PT.setPaid(true);
+  location.href = "index.html";
+};
+</script>
+</body>
+</html>

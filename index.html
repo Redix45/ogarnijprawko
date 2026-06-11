@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ogarnijprawko — testy na prawo jazdy 2026 (oficjalne pytania WORD)</title>
+<meta name="description" content="Darmowe testy na prawo jazdy — wszystkie oficjalne pytania egzaminacyjne WORD (kat. B, A, C, D, T i inne). Tryb nauki i symulator egzaminu państwowego. PL / EN / DE / UA.">
+<meta name="theme-color" content="#0e1116">
+<meta property="og:title" content="ogarnijprawko — testy na prawo jazdy 2026">
+<meta property="og:description" content="Wszystkie oficjalne pytania WORD. Tryb nauki + symulator egzaminu. Za darmo.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header"><div class="container bar">
+  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <nav class="nav">
+    <a href="index.html" class="active">Start</a>
+    <a href="#kategorie">Kategorie</a>
+    <a href="cennik.html">Cennik</a>
+  </nav>
+</div></header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="kicker"><span class="dot"></span> Oficjalna baza pytań · czerwiec 2026</div>
+    <h1>Zdaj <span class="hl">teorię prawa jazdy</span><br>za pierwszym razem</h1>
+    <p>Wszystkie oficjalne pytania egzaminacyjne WORD. Ucz się na spokojnie, podziel materiał na działy albo sprawdź się w wiernym symulatorze egzaminu państwowego.</p>
+    <div class="stats" id="stats">
+      <div class="stat"><b data-count="3525">0</b><span>pytań</span></div>
+      <div class="stat"><b data-count="12">0</b><span>kategorii</span></div>
+      <div class="stat"><b data-count="4">0</b><span>języki</span></div>
+      <div class="stat"><b>25 zł</b><span>na zawsze</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="kategorie">
+    <h2>🚗 Wybierz kategorię prawa jazdy</h2>
+    <p class="muted" style="margin-top:-6px">Kliknij kategorię — wybierzesz tryb i dział tematyczny. Demo: kategoria B.</p>
+    <div class="cat-grid" id="catGrid"><div class="spinner"></div></div>
+  </section>
+
+  <section class="section">
+    <h2>✨ Co dostajesz</h2>
+    <div class="modes" style="margin-top:18px">
+      <div class="mode-card">
+        <h3>📂 Materiał w działach</h3>
+        <p>Pytania pogrupowane tematycznie: znaki, pierwszeństwo, pierwsza pomoc, manewry i więcej. Ucz się partiami, nie chaotycznie.</p>
+      </div>
+      <div class="mode-card">
+        <h3>🏛️ Egzamin 1:1 jak w WORD</h3>
+        <p>Tryb egzaminacyjny odwzorowuje prawdziwy interfejs państwowy — 20s na zapoznanie, 15s na odpowiedź, część podstawowa i specjalistyczna.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer container">
+  Pytania pochodzą z oficjalnej bazy Ministerstwa Infrastruktury (gov.pl) — domena publiczna.<br>
+  ogarnijprawko · projekt edukacyjny · nie jest powiązany z WORD ani MI.
+</footer>
+
+<script src="app.js"></script>
+<script>
+function renderCats(idx){
+  const grid = document.getElementById("catGrid");
+  grid.innerHTML = "";
+  const order = PT.CAT_ORDER.filter(c=>idx.kategorie[c]);
+  Object.keys(idx.kategorie).forEach(c=>{ if(!order.includes(c)) order.push(c); });
+  order.forEach(code=>{
+    const meta = idx.kategorie[code];
+    const m = PT.CAT_META[code] || {n:code};
+    const locked = !PT.canKat(code);
+    const a = document.createElement("a");
+    a.className = "cat" + (locked ? " locked":"");
+    a.href = "kategoria.html?kat=" + encodeURIComponent(code);
+    a.innerHTML = `${locked?'<span class="lock">🔒</span>':''}
+      <div class="code">${code}</div>
+      <div class="desc">${m.n}</div>
+      <div class="count">${meta.razem} pytań</div>`;
+    grid.appendChild(a);
+  });
+}
+
+/* count-up statystyk */
+function countUp(el){
+  const target = +el.dataset.count, dur = 1300, t0 = performance.now();
+  const step = now=>{
+    const p = Math.min((now-t0)/dur, 1);
+    el.textContent = Math.round(target * (1-Math.pow(1-p,3))).toLocaleString("pl-PL");
+    if(p<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+document.querySelectorAll("[data-count]").forEach(countUp);
+
+PT.loadIndex().then(idx=>{
+  renderCats(idx);
+  const first = document.querySelector("#stats .stat b");
+  first.dataset.count = idx.razem; countUp(first);
+}).catch(e=>{
+  document.getElementById("catGrid").innerHTML =
+    '<p class="muted">Nie udało się wczytać pytań. Sprawdź, czy plik <code>data/index.json</code> istnieje.</p>';
+  console.error(e);
+});
+</script>
+</body>
+</html>

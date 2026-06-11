@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tryb nauki — ogarnijprawko</title>
+<meta name="description" content="Ucz się pytań na prawo jazdy bez limitu czasu, z natychmiastową informacją zwrotną.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header"><div class="container bar">
+  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <nav class="nav">
+    <a href="index.html">Start</a>
+    <a href="kategoria.html" id="navKat">Kategoria</a>
+    <a href="cennik.html">Cennik</a>
+  </nav>
+</div></header>
+
+<main class="container" id="app">
+  <div class="spinner"></div>
+</main>
+
+<script src="app.js"></script>
+<script>
+const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
+const DZIAL = PT.qs("dzial") || null;
+document.getElementById("navKat").href = "kategoria.html?kat="+KAT;
+
+/* bramka dostępu (paywall) */
+if(DZIAL){ if(PT.gate(PT.canDzial(KAT,DZIAL),"dzial")) throw new Error("locked"); }
+else { if(PT.gate(PT.isPaid(),"pelny-zakres")) throw new Error("locked"); }
+
+let lista = [], idx = 0, dobre = 0, zle = 0, odpowiedziano = false;
+
+function header(){
+  return `<div class="quiz-top">
+    <a href="kategoria.html?kat=${KAT}" class="pill">← ${KAT}</a>
+    <span class="pill">${PT.t("pyt")} ${idx+1}/${lista.length}</span>
+    <span class="pill" style="color:var(--accent2)">✓ ${dobre}</span>
+    <span class="pill" style="color:var(--danger)">✗ ${zle}</span>
+    <div class="progress"><i style="width:${(idx/lista.length)*100}%"></i></div>
+    <span id="langslot"></span>
+  </div>`;
+}
+
+function render(){
+  const app = document.getElementById("app");
+  if(idx>=lista.length){ return renderKoniec(); }
+  const q = lista[idx];
+  const L = PT.locQ(q);
+  odpowiedziano = false;
+
+  let answers;
+  if(q.typ==="podstawowy"){
+    answers = `<div class="tn-row">
+      <button class="ans tak" data-k="T">${PT.t("tak")}</button>
+      <button class="ans tak" data-k="N">${PT.t("nie")}</button>
+    </div>`;
+  } else {
+    answers = `<div class="answers">` + ["A","B","C"].map(k=>
+      `<button class="ans" data-k="${k}"><span class="k">${k}</span>${(L.odp&&L.odp[k])||""}</button>`
+    ).join("") + `</div>`;
+  }
+
+  app.innerHTML = header() + `
+    <div class="qcard">
+      <div class="qmeta">
+        <span>#${q.id}</span>
+        <span class="pts">${q.punkty} ${PT.t("pkt")}</span>
+        <span>${q.typ==="podstawowy"?"podstawowe":"specjalistyczne"}</span>
+      </div>
+      ${PT.mediaHtml(q)}
+      <p class="qtext">${L.tekst}</p>
+      ${answers}
+      <div class="explain" id="explain"></div>
+      <div class="quiz-nav">
+        <button class="btn ghost" id="next" disabled>${PT.t("dalej")} →</button>
+      </div>
+    </div>`;
+
+  document.getElementById("langslot").appendChild(PT.langSwitch(render));
+  app.querySelectorAll(".ans").forEach(b=> b.onclick = ()=>odpowiedz(b, q));
+  document.getElementById("next").onclick = ()=>{ idx++; render(); };
+}
+
+function odpowiedz(btn, q){
+  if(odpowiedziano) return;
+  odpowiedziano = true;
+  const pick = btn.dataset.k;
+  const ok = pick === q.poprawna;
+  if(ok) dobre++; else zle++;
+  document.querySelectorAll(".ans").forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.k === q.poprawna) b.classList.add("correct");
+    else if(b===btn) b.classList.add("wrong");
+  });
+  const ex = document.getElementById("explain");
+  ex.classList.add("show");
+  ex.innerHTML = ok
+    ? `✅ Dobrze!`
+    : `❌ ${PT.t("poprawna")}: <b>${q.poprawna}</b>`;
+  document.getElementById("next").disabled = false;
+}
+
+function renderKoniec(){
+  const proc = lista.length ? Math.round(dobre/lista.length*100) : 0;
+  document.getElementById("app").innerHTML = `
+    <div class="result ${proc>=75?'pass':''}" style="margin-top:30px">
+      <div class="badge">${proc>=75?'🎉':'📚'}</div>
+      <h2>Przerobiono kategorię ${KAT}</h2>
+      <div class="score">Dobrze: <b style="color:var(--accent2)">${dobre}</b> / ${lista.length} (${proc}%)</div>
+      <div class="quiz-nav" style="max-width:380px;margin:0 auto">
+        <button class="btn" onclick="location.reload()">${PT.t("jeszczeRaz")}</button>
+        <a class="btn ghost" href="kategoria.html?kat=${KAT}">← Działy</a>
+      </div>
+    </div>`;
+}
+
+PT.loadIndex()
+  .then(()=>PT.loadKat(KAT))
+  .then(data=>{
+    let pula = data.slice();
+    if(DZIAL) pula = pula.filter(q=>q.dzial===DZIAL);
+    if(!pula.length){ document.getElementById("app").innerHTML='<p class="muted">Brak pytań w tym dziale.</p>'; return; }
+    lista = PT.shuffle(pula);
+    render();
+  })
+  .catch(e=>{ if(e.message!=="locked"){ document.getElementById("app").innerHTML='<p class="muted">Błąd ładowania pytań.</p>'; console.error(e);} });
+</script>
+</body>
+</html>
