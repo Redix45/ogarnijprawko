@@ -173,12 +173,12 @@ function setTheme(th){document.documentElement.setAttribute("data-theme",th);loc
   const b=document.getElementById("themeToggle");
   if(b){b.innerHTML=th==="dark"?ICON_SUN:ICON_MOON;b.setAttribute("aria-label",th==="dark"?"Tryb jasny":"Tryb ciemny");}}
 function injectTheme(){
-  const nav=document.querySelector(".site-header .nav");
-  if(!nav||document.getElementById("themeToggle"))return;
+  const bar=document.querySelector(".site-header .bar");
+  if(!bar||document.getElementById("themeToggle"))return;
   const b=document.createElement("button");
   b.id="themeToggle";b.className="theme-toggle";b.type="button";
   b.onclick=()=>setTheme(curTheme()==="dark"?"light":"dark");
-  nav.appendChild(b); setTheme(curTheme());
+  bar.appendChild(b); setTheme(curTheme());
 }
 document.documentElement.setAttribute("data-theme",curTheme());
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",injectTheme);else injectTheme();

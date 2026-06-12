@@ -353,7 +353,12 @@ a.pill:hover{border-color:var(--brand);color:var(--brand-d)}
   .ans .k{min-width:32px;height:32px}
   .cat{padding:18px 16px;min-height:104px}
   .cat-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-  .nav a{padding:9px 12px}
+  /* header: brand+toggle w rzędzie, nav pełna szerokość pod spodem */
+  .site-header .bar{flex-wrap:wrap;height:auto;min-height:54px;padding:7px 0;row-gap:4px;gap:10px}
+  .brand{order:0;font-size:1.06rem}
+  .theme-toggle{order:1;margin-left:auto}
+  .nav{order:2;width:100%;margin:0;justify-content:center;gap:4px}
+  .nav a{padding:8px 14px;font-size:.9rem}
   .quiz-top{gap:8px}
   .qtext{font-size:1.14rem}
   .lang button{padding:7px 10px;font-size:.82rem}
