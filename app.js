@@ -111,7 +111,12 @@ function mediaHtml(q){
       src="media/img/${encodeURIComponent(q.media)}"
       onerror="this.onerror=null;this.parentElement.innerHTML='<div class=&quot;muted&quot; style=&quot;padding:30px&quot;>🖼️ ${base}</div>'"><span class="wm-top"></span></div>`;
   }
-  // wideo: .wmv nie gra w przeglądarce — placeholder do czasu transkodu
+  if(q.mediaTyp==="video"){
+    const base = q.media.replace(/\.[^.]+$/,"");
+    return `<div class="qmedia"><video src="media/vid/${encodeURIComponent(base)}.mp4"
+      controls playsinline muted preload="metadata"
+      onerror="this.closest('.qmedia').innerHTML='<div class=&quot;muted&quot; style=&quot;padding:40px;text-align:center&quot;>▶ ${t("filmWkrotce")}</div>'"></video><span class="wm-top"></span></div>`;
+  }
   return `<div class="qmedia"><div class="muted center" style="padding:40px 20px">${t("filmWkrotce")}</div></div>`;
 }
 

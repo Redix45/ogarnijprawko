@@ -223,7 +223,10 @@ function mediaInner(q,show){
       <div class="qid">ID: ${q.id}</div>`;
   }
   if(q.media && q.mediaTyp==="video"){
-    return `<div class="reading"><div class="cam">▶</div><div class="t2">Materiał wideo — wersja online wkrótce</div></div><div class="qid">ID: ${q.id}</div>`;
+    const vb=q.media.replace(/\.[^.]+$/,"");
+    return `<video src="media/vid/${encodeURIComponent(vb)}.mp4" muted playsinline preload="auto"
+      onerror="this.outerHTML='<div class=&quot;reading&quot;><div class=&quot;cam&quot;>▶</div><div class=&quot;t2&quot;>Film w przygotowaniu</div></div>'"></video>
+      <span class="wm-top"></span><div class="qid">ID: ${q.id}</div>`;
   }
   return `<div class="reading"><div class="t2" style="opacity:.5">— pytanie tekstowe —</div></div><div class="qid">ID: ${q.id}</div>`;
 }
