@@ -6,13 +6,13 @@
 <title>Kategoria — ogarnijprawko</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="site-header"><div class="container bar">
-  <a class="brand" href="index.html"><span class="logo">🚦</span> ogarnijprawko</a>
+  <a class="brand" href="index.html"><span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.4" fill="#fff" stroke="none"/><path d="M12 14.4V21M9.7 11.2 4.2 8.2M14.3 11.2 19.8 8.2"/></svg></span> ogarnijprawko</a>
   <nav class="nav">
     <a href="index.html">Start</a>
     <a href="cennik.html">Cennik</a>
@@ -34,7 +34,7 @@ localStorage.setItem("pt_kat", KAT);
 function demoBanner(){
   if(PT.isPaid()) return "";
   return `<div class="demo-banner">
-    <span>🔓 <b>Wersja demo.</b> Darmowo: kategoria B + dział „Znaki i sygnały" (tryb nauki).</span>
+    <span><b>Wersja demo.</b> Darmowo: kategoria B + dział „Znaki i sygnały" (tryb nauki).</span>
     <a class="btn" href="cennik.html">Odblokuj wszystko — ${PT.ACCESS.cena} zł →</a>
   </div>`;
 }
@@ -42,7 +42,7 @@ function demoBanner(){
 function trybCard(emoji, tytul, opis, href, locked, primary){
   return `<a class="mode-card tryb ${locked?'locked':''}" href="${locked?'cennik.html?powod='+encodeURIComponent(tytul):href}">
     ${locked?'<span class="lock">🔒</span>':''}
-    <h3>${emoji} ${tytul}</h3>
+    <h3>${emoji?emoji+" ":""}${tytul}</h3>
     <p>${opis}</p>
     <span class="btn ${primary?'':'ghost'}">${locked?'Odblokuj':'Wybierz'} →</span>
   </a>`;
@@ -72,16 +72,16 @@ function render(idx){
     ${demoBanner()}
 
     <section class="section" style="margin-top:34px">
-      <h2>🎯 Tryby nauki</h2>
+      <h2>Tryby nauki</h2>
       <div class="modes" style="margin-top:18px">
-        ${trybCard("📚","Nauka — cały zakres",`Wszystkie ${meta.razem} pytań kategorii ${KAT} bez limitu czasu, z natychmiastowym feedbackiem.`, `nauka.html?kat=${KAT}`, !PT.isPaid(), true)}
-        ${trybCard("📝","Symulator","32 pytania, czas i punktacja jak na egzaminie. Ciemny, wygodny interfejs.", `egzamin.html?kat=${KAT}`, !PT.canTryb("egzamin"), false)}
-        ${trybCard("🏛️","Egzamin państwowy 1:1","Wierna kopia interfejsu WORD. Tak wygląda prawdziwy egzamin.", `egzamin-word.html?kat=${KAT}`, !PT.canTryb("word"), false)}
+        ${trybCard("","Nauka — cały zakres",`Wszystkie ${meta.razem} pytań kategorii ${KAT} bez limitu czasu, z natychmiastowym feedbackiem.`, `nauka.html?kat=${KAT}`, !PT.isPaid(), true)}
+        ${trybCard("","Symulator","32 pytania, czas i punktacja jak na egzaminie. Ciemny, wygodny interfejs.", `egzamin.html?kat=${KAT}`, !PT.canTryb("egzamin"), false)}
+        ${trybCard("","Egzamin państwowy 1:1","Wierna kopia interfejsu WORD. Tak wygląda prawdziwy egzamin.", `egzamin-word.html?kat=${KAT}`, !PT.canTryb("word"), false)}
       </div>
     </section>
 
     <section class="section">
-      <h2>📂 Działy tematyczne</h2>
+      <h2>Działy tematyczne</h2>
       <p class="muted" style="margin-top:-4px">Ucz się partiami. <span style="opacity:.7">Podział tematyczny generowany automatycznie.</span></p>
       <div class="cat-grid" style="margin-top:18px">${dzialy}</div>
     </section>`;
