@@ -52,6 +52,8 @@
 }
 :root{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark}
+/* płynne przejścia między stronami (MPA View Transitions) — bez SPA */
+@view-transition{ navigation:auto; }
 *{box-sizing:border-box}
 ::selection{background:var(--brand-tint);color:var(--brand-dd)}
 html{scroll-behavior:smooth}
@@ -292,6 +294,36 @@ a.pill:hover{border-color:var(--brand);color:var(--brand-d)}
 .cat.dzial.locked:hover{border-color:var(--warn)}
 .mode-card.tryb.locked{background:#fffdf8;border-color:#f0e0c0}
 
+/* ============ LANDING: promo / opinie / FAQ ============ */
+.promo{display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;
+  margin-top:26px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:10px 20px;box-shadow:var(--shadow-sm)}
+.promo .tag{background:var(--danger);color:#fff;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.03em}
+.promo .price-old{color:var(--muted);text-decoration:line-through}
+.promo .price-new{font-size:1.3rem;font-weight:800;color:var(--brand-d)}
+.promo .left{color:var(--text-2);font-size:.9rem}
+.promo .left b{color:var(--danger)}
+
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:20px}
+.review{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
+.review .stars{color:#f5b400;font-size:.92rem;letter-spacing:1px}
+.review p{margin:9px 0 14px;color:var(--text-2);font-size:.95rem;line-height:1.55}
+.review .who{display:flex;align-items:center;gap:10px}
+.review .av{width:36px;height:36px;border-radius:50%;background:var(--brand-tint);color:var(--brand-d);display:grid;place-items:center;font-weight:700;font-size:.92rem;flex-shrink:0}
+.review .who b{font-size:.9rem;color:var(--text)}
+.review .who span{color:var(--muted);font-size:.8rem;display:block}
+
+.faq{margin-top:18px;display:flex;flex-direction:column;gap:10px;max-width:760px}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.faq summary{padding:16px 18px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--muted);font-size:1.4rem;font-weight:300;transition:transform .2s var(--ease);flex-shrink:0}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details>div{padding:0 18px 16px;color:var(--muted);font-size:.95rem;line-height:1.6}
+
+.cta-final{text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:38px 24px;box-shadow:var(--shadow);margin-top:20px}
+.cta-final h2{margin:0 0 8px;border:0}
+.cta-final p{color:var(--muted);margin:0 0 22px;max-width:480px;margin-left:auto;margin-right:auto}
+
 /* ============ FOOTER ============ */
 .footer{
   text-align:center;color:var(--muted);font-size:.86rem;line-height:1.7;
@@ -308,9 +340,26 @@ a.pill:hover{border-color:var(--brand);color:var(--brand-d)}
 
 @media(max-width:640px){
   .modes{grid-template-columns:1fr}
-  .hero{padding:48px 0 22px}
-  .container{padding:0 18px}
-  .stat{min-width:calc(50% - 14px);padding:14px 18px}
-  .qcard{padding:20px 16px}
+  .hero{padding:44px 0 20px}
+  .container{padding:0 16px}
+  .stat{min-width:calc(50% - 12px);padding:14px 16px}
+  .qcard{padding:18px 14px}
   .tn-row{flex-direction:column}
+  /* większe tap-targety na mobile */
+  .btn{padding:14px 22px;font-size:1.02rem;min-height:50px}
+  .btn.big{padding:16px 24px;min-height:54px}
+  .ans{padding:16px 16px;min-height:54px;font-size:1.04rem}
+  .tn-row .ans{padding:18px;min-height:60px}
+  .ans .k{min-width:32px;height:32px}
+  .cat{padding:18px 16px;min-height:104px}
+  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+  .nav a{padding:9px 12px}
+  .quiz-top{gap:8px}
+  .qtext{font-size:1.14rem}
+  .lang button{padding:7px 10px;font-size:.82rem}
+  .theme-toggle{width:40px;height:40px}
+  .demo-banner{flex-direction:column;align-items:stretch;text-align:center}
+  .demo-banner .btn{width:100%}
 }
+/* przyjemniejszy tap (bez niebieskiego highlightu) */
+a,button{-webkit-tap-highlight-color:transparent}

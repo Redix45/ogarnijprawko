@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <p class="guarantee">Demo (kategoria B, dział „Znaki i sygnały") pozostaje darmowe — sprawdź zanim kupisz.</p>
+    <p class="guarantee">Demo: 10 pytań nauki + 1 egzamin próbny — sprawdź zanim kupisz.</p>
 
     <div class="dev-unlock">
       <p>Tryb testowy (do czasu podłączenia płatności):</p>
@@ -99,10 +99,9 @@ const STRIPE = { paymentLink: "" };  // np. "https://buy.stripe.com/xxxxx"
 
 /* powód przekierowania */
 const POWODY = {
-  "dzial":"Ten dział jest dostępny w pełnej wersji.",
-  "pelny-zakres":"Nauka całej kategorii wymaga pełnego dostępu.",
-  "egzamin":"Symulator egzaminu jest dostępny w pełnej wersji.",
-  "word":"Egzamin państwowy 1:1 jest dostępny w pełnej wersji.",
+  "nauka-limit":"Wykorzystałeś darmowe pytania demo.",
+  "egzamin":"Darmowy egzamin próbny już wykorzystany.",
+  "word":"Darmowy egzamin próbny już wykorzystany.",
 };
 const powod = PT.qs("powod");
 if(powod && POWODY[powod]){

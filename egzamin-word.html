@@ -147,7 +147,7 @@ body{font-family:"Arimo",Arial,sans-serif;background:var(--wbg);color:var(--wtxt
 <script src="app.js"></script>
 <script>
 const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
-if(PT.gate(PT.canTryb("word"),"word")) throw new Error("locked");
+if(PT.gate(PT.canExam(),"word")) throw new Error("locked");
 const E = PT.EXAM;
 let IDX_DATA=null, DATA=null, pyt=[], idx=0, odp=[], tick=null, sek=0, sekMax=0, faza="czytanie";
 
@@ -171,7 +171,7 @@ function intro(){
      <a class="wlink" href="kategoria.html?kat=${KAT}">← powrót</a>
    </div></div>`;
 }
-function begin(){ pyt=PT.buildExam(DATA); idx=0; odp=new Array(pyt.length).fill(null); render(); }
+function begin(){ PT.markDemoExam(); pyt=PT.buildExam(DATA); idx=0; odp=new Array(pyt.length).fill(null); render(); }
 
 /* ---------- timer ---------- */
 function startTimer(){

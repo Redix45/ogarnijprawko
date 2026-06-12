@@ -34,8 +34,9 @@ localStorage.setItem("pt_kat", KAT);
 
 function demoBanner(){
   if(PT.isPaid()) return "";
+  const exam = PT.demoExamUsed() ? "egzamin próbny wykorzystany" : "1 darmowy egzamin próbny";
   return `<div class="demo-banner">
-    <span><b>Wersja demo.</b> Darmowo: kategoria B + dział „Znaki i sygnały" (tryb nauki).</span>
+    <span><b>Wersja demo.</b> Darmowo: ${PT.ACCESS.naukaLimit} pytań nauki + ${exam}.</span>
     <a class="btn" href="cennik.html">Odblokuj wszystko — ${PT.ACCESS.cena} zł →</a>
   </div>`;
 }
@@ -55,10 +56,8 @@ function render(idx){
   if(!meta){ document.getElementById("app").innerHTML='<p class="muted">Brak kategorii.</p>'; return; }
 
   const dzialy = (meta.dzialy||[]).map(d=>{
-    const locked = !PT.canDzial(KAT, d.slug);
     const href = `nauka.html?kat=${KAT}&dzial=${d.slug}`;
-    return `<a class="cat dzial ${locked?'locked':''}" href="${locked?'cennik.html?powod=dzial':href}">
-      ${locked?'<span class="lock">🔒</span>':''}
+    return `<a class="cat dzial" href="${href}">
       <div class="code-sm">${d.nazwa}</div>
       <div class="count">${d.liczba} pytań</div>
     </a>`;
@@ -75,9 +74,9 @@ function render(idx){
     <section class="section" style="margin-top:34px">
       <h2>Tryby nauki</h2>
       <div class="modes" style="margin-top:18px">
-        ${trybCard("","Nauka — cały zakres",`Wszystkie ${meta.razem} pytań kategorii ${KAT} bez limitu czasu, z natychmiastowym feedbackiem.`, `nauka.html?kat=${KAT}`, !PT.isPaid(), true)}
-        ${trybCard("","Symulator","32 pytania, czas i punktacja jak na egzaminie. Ciemny, wygodny interfejs.", `egzamin.html?kat=${KAT}`, !PT.canTryb("egzamin"), false)}
-        ${trybCard("","Egzamin państwowy 1:1","Wierna kopia interfejsu WORD. Tak wygląda prawdziwy egzamin.", `egzamin-word.html?kat=${KAT}`, !PT.canTryb("word"), false)}
+        ${trybCard("","Nauka",`Wszystkie ${meta.razem} pytań bez limitu czasu, z natychmiastowym feedbackiem.${PT.isPaid()?'':' Demo: '+PT.ACCESS.naukaLimit+' pytań.'}`, `nauka.html?kat=${KAT}`, false, true)}
+        ${trybCard("","Symulator","32 pytania, czas i punktacja jak na egzaminie. Ciemny, wygodny interfejs.", `egzamin.html?kat=${KAT}`, !PT.canExam(), false)}
+        ${trybCard("","Egzamin państwowy 1:1","Wierna kopia interfejsu WORD. Tak wygląda prawdziwy egzamin.", `egzamin-word.html?kat=${KAT}`, !PT.canExam(), false)}
       </div>
     </section>
 

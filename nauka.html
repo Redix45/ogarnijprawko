@@ -32,11 +32,8 @@ const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
 const DZIAL = PT.qs("dzial") || null;
 document.getElementById("navKat").href = "kategoria.html?kat="+KAT;
 
-/* bramka dostępu (paywall) */
-if(DZIAL){ if(PT.gate(PT.canDzial(KAT,DZIAL),"dzial")) throw new Error("locked"); }
-else { if(PT.gate(PT.isPaid(),"pelny-zakres")) throw new Error("locked"); }
-
 let lista = [], idx = 0, dobre = 0, zle = 0, odpowiedziano = false;
+let demoLimit = false;   // czy pula obcięta do limitu demo
 
 function header(){
   return `<div class="quiz-top">
@@ -110,6 +107,20 @@ function odpowiedz(btn, q){
 
 function renderKoniec(){
   const proc = lista.length ? Math.round(dobre/lista.length*100) : 0;
+  if(demoLimit){
+    document.getElementById("app").innerHTML = `
+      <div class="result" style="margin-top:30px">
+        <div class="badge">🔓</div>
+        <h2>Koniec wersji demo</h2>
+        <div class="score">Przerobiłeś ${lista.length} darmowych pytań (${dobre} dobrze).<br>
+          Pełna baza to <b>3525 pytań</b> i wszystkie tryby — jednorazowo ${PT.ACCESS.cena} zł, na zawsze.</div>
+        <div class="quiz-nav" style="max-width:420px;margin:0 auto">
+          <a class="btn" href="cennik.html?powod=nauka-limit">Odblokuj pełny dostęp →</a>
+          <a class="btn ghost" href="kategoria.html?kat=${KAT}">Wróć</a>
+        </div>
+      </div>`;
+    return;
+  }
   document.getElementById("app").innerHTML = `
     <div class="result ${proc>=75?'pass':''}" style="margin-top:30px">
       <div class="badge">${proc>=75?'✓':'•'}</div>
@@ -128,10 +139,13 @@ PT.loadIndex()
     let pula = data.slice();
     if(DZIAL) pula = pula.filter(q=>q.dzial===DZIAL);
     if(!pula.length){ document.getElementById("app").innerHTML='<p class="muted">Brak pytań w tym dziale.</p>'; return; }
-    lista = PT.shuffle(pula);
+    pula = PT.shuffle(pula);
+    const cap = PT.naukaCap();
+    if(pula.length > cap){ pula = pula.slice(0, cap); demoLimit = true; }
+    lista = pula;
     render();
   })
-  .catch(e=>{ if(e.message!=="locked"){ document.getElementById("app").innerHTML='<p class="muted">Błąd ładowania pytań.</p>'; console.error(e);} });
+  .catch(e=>{ document.getElementById("app").innerHTML='<p class="muted">Błąd ładowania pytań.</p>'; console.error(e); });
 </script>
 </body>
 </html>

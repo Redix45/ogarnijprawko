@@ -28,7 +28,7 @@
 <script>
 const KAT = PT.qs("kat") || localStorage.getItem("pt_kat") || "B";
 document.getElementById("navKat").href = "kategoria.html?kat="+KAT;
-if(PT.gate(PT.canTryb("egzamin"),"egzamin")) throw new Error("locked");
+if(PT.gate(PT.canExam(),"egzamin")) throw new Error("locked");
 const E = PT.EXAM;
 let pyt = [], idx = 0, odp = [], tick = null, sekundy = 0, faza = "czytanie";
 
@@ -51,6 +51,7 @@ function intro(){
 }
 
 function start(){
+  PT.markDemoExam();
   pyt = PT.buildExam(window._data);
   idx = 0; odp = new Array(pyt.length).fill(null);
   render();

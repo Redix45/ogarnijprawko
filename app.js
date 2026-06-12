@@ -16,15 +16,17 @@ const APP = {
    Stan 'paid' trzymany w localStorage; docelowo nadpisywany przez Firebase. */
 const ACCESS = {
   cena: 25,
-  freeKat: "B",
-  freeDzial: "znaki",       // jedyny darmowy dział w demo
+  naukaLimit: 10,           // demo: ile pytań nauki bez opłaty
 };
 function isPaid(){ return localStorage.getItem("op_paid") === "1"; }
 function setPaid(v){ v ? localStorage.setItem("op_paid","1") : localStorage.removeItem("op_paid"); }
-function canKat(kat){ return isPaid() || kat === ACCESS.freeKat; }
-function canDzial(kat, dzial){ return isPaid() || (kat===ACCESS.freeKat && dzial===ACCESS.freeDzial); }
-function canTryb(tryb){ return isPaid() || tryb === "nauka"; }  // egzamin/word tylko paid
-/* przekierowanie na paywall jeśli brak dostępu; zwraca true gdy zablokowano */
+/* demo: 1 egzamin próbny + 10 pytań nauki */
+function demoExamUsed(){ return localStorage.getItem("op_demo_exam") === "1"; }
+function markDemoExam(){ if(!isPaid()) localStorage.setItem("op_demo_exam","1"); }
+function canExam(){ return isPaid() || !demoExamUsed(); }       // egzamin: paid lub 1x demo
+function naukaCap(){ return isPaid() ? Infinity : ACCESS.naukaLimit; }
+function canKat(){ return true; }    // przeglądanie kategorii zawsze otwarte
+/* przekierowanie na paywall; zwraca true gdy zablokowano */
 function gate(ok, powod){
   if(ok) return false;
   location.href = "cennik.html" + (powod ? "?powod="+encodeURIComponent(powod) : "");
@@ -184,4 +186,4 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 window.APP=APP;
 window.PT={loadIndex,loadKat,buildExam,locQ,mediaHtml,langSwitch,qs,fmtTime,shuffle,t,
   CAT_META,CAT_ORDER,EXAM,BRAND,ACCESS,
-  isPaid,setPaid,canKat,canDzial,canTryb,gate};
+  isPaid,setPaid,canKat,canExam,naukaCap,demoExamUsed,markDemoExam,gate};
